@@ -9,6 +9,8 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Raleway', sans-serif; color: #222; }
 
+
+
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -48,15 +50,15 @@
 
     .hero::before {
       content: ''; position: absolute; inset: 0;
-      background: rgba(20, 10, 15, 0.38); z-index: 1;
+      background: rgba(72, 168, 185, 0.1); z-index: 1;
     }
 
     .hero-box {
       position: relative; z-index: 2;
-      background: rgba(40, 20, 25, 0.62);
+      background: rgba(13, 39, 57, 0.413);
       padding: 3.5rem 4rem;
       text-align: center; color: #fff;
-      max-width: 560px;
+      max-width: 600px;
     }
 
     .hero-rule {
@@ -75,7 +77,7 @@
 
     .hero-sub {
       margin-top: 1.1rem;
-      font-size: clamp(0.72rem, 1.6vw, 0.82rem);
+      /*font-size: clamp(0.8rem, 2vw, 0.82rem);*/
       letter-spacing: 0.2em; font-weight: 400;
       text-transform: uppercase; line-height: 1.8;
       color: rgba(255,255,255,0.88);
@@ -104,18 +106,156 @@
     .section p {
       font-size: 1rem; line-height: 1.8; color: #555; font-weight: 400;
     }
+
+    /* ── FEATURES ── */
+
+    .features-intro {
+      max-width: 720px; margin: 0 auto 4rem;
+      text-align: center;
+    }
+
+    .features-heading {
+      font-size: 1.25rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: #8a8a8a; margin-bottom: 1rem;
+    }
+
+    .features-summary {
+      font-size: 1.08rem; line-height: 1.9;
+      color: #444; font-weight: 400;
+    }
+
+    .features {
+      padding: 6rem 2rem;
+      background: #fafafa;
+    }
+
+    .features-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+
+    .feature-card {
+      padding: 3rem 2.8rem;
+      text-align: center;
+      border-right: 1px solid #e4e4e4;
+      transition: background 0.25s;
+    }
+    .feature-card:last-child { border-right: none; }
+    .feature-card:hover { background: #fff; }
+
+    .feature-icon {
+      font-size: 1.8rem; color: #999;
+      margin-bottom: 1.0rem;
+      display: block;
+    }
+
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #111;
+      margin-bottom: 1.0rem;
+    }
+
+    .feature-title::after {
+      content: '';
+      display: block;
+      width: 32px;
+      border-bottom: 2px solid #bbb;
+      margin: 0.5rem auto 0;
+    }
+
+    .feature-text {
+      font-size: 0.92rem;
+      line-height: 1.85;
+      color: #3f3f3f;
+      font-weight: 400;
+    }
+
+    @media (max-width: 700px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .feature-card { border-right: none; border-bottom: 1px solid #e4e4e4; }
+      .feature-card:last-child { border-bottom: none; }
+    }
+
+    /* ── EXAMPLES ── */
+    .examples {
+      padding: 6rem 2rem;
+      background: #fff;
+    }
+
+    .examples-intro {
+      max-width: 720px; margin: 0 auto 4rem;
+      text-align: center;
+    }
+
+    .examples-grid {
+      max-width: 1000px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+    }
+
+    .example-card {
+      display: flex; flex-direction: column;
+      background: #fafafa;
+      border: 1px solid #e8e8e8;
+      overflow: hidden;
+      transition: box-shadow 0.25s;
+    }
+    .example-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.08); }
+
+    .example-gif {
+      width: 100%; aspect-ratio: 16/9;
+      background: #e0e0e0; overflow: hidden;
+    }
+    .example-gif img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+
+    .example-title {
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: #111; padding: 1.3rem 1.5rem 0.5rem;
+    }
+    .example-title::after {
+      content: '';
+      display: block;
+      width: 28px;
+      border-bottom: 2px solid #bbb;
+      margin-top: 0.5rem;
+    }
+
+    .example-text {
+      font-size: 0.9rem; line-height: 1.8;
+      color: #666; padding: 0.8rem 1.5rem 1.5rem;
+    }
+
+    @media (max-width: 650px) {
+      .examples-grid { grid-template-columns: 1fr; }
+    }
+      .features-grid { grid-template-columns: 1fr; }
+      .feature-card { border-right: none; border-bottom: 1px solid #e4e4e4; }
+      .feature-card:last-child { border-bottom: none; }
+    
+
   </style>
 </head>
 <body>
 
   <nav>
-    <a class="nav-brand" href="#">My Project <span>NAME</span></a>
+    <a class="nav-brand" href="#">The HydroGym Project</a>
     <ul class="nav-links">
       <li><a href="#" class="active">Home</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Gallery</a></li>
-      <li><a href="#" class="ext">Docs</a></li>
-      <li><a href="#" class="ext">Code</a></li>
+      <li><a href="getting_started.html">Get started</a></li>
+      
+      <li><a href="https://github.com/dynamicslab/hydrogym/blob/sa/ApptainerInfo/README.md#quick-start-with-docker-recommended" class="ext">Docs</a></li>
+      <li><a href="https://github.com/dynamicslab/hydrogym" class="ext">Code</a></li>
     </ul>
   </nav>
 
@@ -126,12 +266,97 @@
       <h1 class="hero-title">HydroGym</h1>
       <p class="hero-sub">A reinforcement learning platform<br>for fluid dynamics</p>
       <hr class="hero-rule bottom">
-      <a href="#about" class="hero-btn">Learn More</a>
+      <div class="hero-btns">
+        <a href="#about" class="hero-btn">Learn More</a>
+        <a href="#examples" class="hero-btn">Examples</a>
+      </div>
     </div>
   </section>
 
-  <section class="section" id="about">
+  <!-- FEATURES -->
+  <section class="features" id="about">
+
+    <div class="features-intro">
+      <h2 class="features-heading">About the Project</h2>
+      <p class="features-summary">HydroGym is a transparent, extensible & comprehensive platform for applying reinforcement learning to fluid dynamics flow control. With environments ranging from canonical benchmarks to turbulent flows, HydroGym provides a standardized Gymnasium-compatible interface for training RL agents on challenging CFD problems.
+
+      </p>
+    </div>
+
+    <div class="features-grid">
+
+      <div class="feature-card">
+        <h3 class="feature-title">Diverse Environments</h3>
+        <p class="feature-text">
+          88 pre-configured environments across 6 CFD solvers. 
+          Flow environments are supported by multiple backends: Finite Element (Firedrake), Lattice Boltzmann (MAIA LBM), Finite Volume (MAIA FV), Spectral Element (NEK5000), and fully Differentiable solvers (JAX-Fluids)
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <h3 class="feature-title">Scalable Implementation</h3>
+        <p class="feature-text">Highly optimized GPU & CPU backends for efficient RL deployment ranging from local workstations to exascale HPC systems</p>
+      </div>
+
+      <div class="feature-card">
+        <h3 class="feature-title">Research Ready</h3>
+        <p class="feature-text">Includes checkpoints, observation strategies, and reward formulations managed by a complementary HuggingFace repository. Gymnasium-compatible API works with Stable-Baselines3, RLlib, and other RL libraries </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- EXAMPLES -->
+  <section class="examples" id="examples">
+    <div class="examples-intro">
+      <h2 class="features-heading">Examples</h2>
+      <p class="features-summary"></p>
+    </div>
+    <div class="examples-grid">
+
+      <div class="example-card">
+        <div class="example-gif"><img src="assets/cylinder.gif" alt="Example 1"/></div>
+        <h3 class="example-title">Cylinder</h3>
+        <p class="example-text">2D & 3D flows at Re=100-3,900. Drag reduction via rotation and jet actuation. Achieves >20% drag reduction.</p>
+      </div>
+
+      <div class="example-card">
+        <div class="example-gif"><img src="assets/pinball.gif" alt="Example 2"/></div>
+        <h3 class="example-title">Fluidic pinball</h3>
+        <p class="example-text">Multi-body wake interactions at Re=30-150. Coordinated control of three cylinders demonstrates chaos suppression.</p>
+      </div>
+
+      <div class="example-card">
+        <div class="example-gif"><img src="assets/outputnotcontrolledchannel.gif" alt="Example 3"/></div>
+        <h3 class="example-title">Turbulent channel flow (Differentiable)</h3>
+        <p class="example-text">Wall-shear stress reduction at Reτ=180. Gradient-enhanced training with JAX for efficient optimization.</p>
+      </div>
+
+      <div class="example-card">
+        <div class="example-gif"><img src="assets/naca.gif" alt="Example 4"/></div>
+        <h3 class="example-title">NACA 0012 airfoil</h3>
+        <p class="example-text">Gust mitigation at Re=100-50,000. Transverse gust encounters with load alleviation strategies.</p>
+      </div>
+
+      <div class="example-card">
+        <div class="example-gif"><img src="assets/kolmogorov.gif" alt="Example 5"/></div>
+        <h3 class="example-title">Kolmogorov flow (Differentiable)</h3>
+        <p class="example-text">Extreme event mitigation in 2D turbulence. Control energy bursts and enhance mixing efficiency.</p>
+      </div>
+
+      <div class="example-card">
+        <div class="example-gif"><img src="assets/cavity.gif" alt="Example 6"/></div>
+        <h3 class="example-title">Open cavity flow</h3>
+        <p class="example-text">Shear layer stabilization at Re=4,140-7,500. Acoustic feedback disruption through leading-edge control.</p>
+      </div>
+
+
+
+  <!-- <section class="section" id="about">
     <h2>About</h2>
+
+    <h4>From canonical 2D cylinder flows to complex 3D turbulent scenarios, HydroGym provides standardized environments for systematic RL algorithm development and evaluation.</h4>
 
     <p><strong>Transparent, Extensible & Customizable  Python Framework</strong></p>
                 <p>Python-based finite element solver prioritizing code clarity and research extensibility with full access to solver internals.</p>
@@ -141,7 +366,7 @@
                     <li>Easy to modify and extend</li>
                     <li>PETSc parallel linear algebra backend</li>
                 </ul>
-  </section>
+  </section> -->
 
 </body>
 </html>

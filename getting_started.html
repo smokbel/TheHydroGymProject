@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Get Started</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Raleway', sans-serif; color: #222; background: #fff; }
+
+    /* ── TOP NAV (same as index) ── */
+    .topnav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem; height: 56px;
+      background: rgba(255,255,255,0.97);
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .nav-brand {
+      font-size: 1rem; letter-spacing: 0.18em; font-weight: 700;
+      color: #111; text-transform: uppercase; text-decoration: none;
+    }
+    .nav-brand span { font-weight: 300; color: #777; }
+    .topnav-links { display: flex; gap: 2rem; list-style: none; }
+    .topnav-links a {
+      font-size: 0.75rem; letter-spacing: 0.14em; font-weight: 600;
+      text-transform: uppercase; text-decoration: none; color: #555;
+      transition: color 0.2s;
+    }
+    .topnav-links a:hover { color: #111; }
+    .topnav-links a.active { font-weight: 700; color: #111; }
+    .topnav-links .ext::before { content: "↗ "; font-size: 0.65rem; }
+
+    /* ── SECTION TABS (sticky below topnav) ── */
+    .section-tabs {
+      position: sticky; top: 56px; z-index: 100;
+      display: flex; gap: 0;
+      background: #fff;
+      border-bottom: 2px solid #e8e8e8;
+      padding: 0 2.5rem;
+    }
+    .section-tabs a {
+      font-size: 0.72rem; letter-spacing: 0.16em; font-weight: 600;
+      text-transform: uppercase; text-decoration: none; color: #888;
+      padding: 1rem 1.6rem;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: color 0.2s, border-color 0.2s;
+      display: flex; align-items: center; gap: 0.3rem;
+    }
+    .section-tabs a:hover { color: #111; }
+    .section-tabs a.active { color: #111; border-bottom-color: #111; }
+    .section-tabs .ext-arrow { font-size: 0.8rem; }
+
+    /* ── DROPDOWN ── */
+    .tab-dropdown { position: relative; }
+    .tab-dropdown > a { cursor: default; }
+    .tab-dropdown > a .caret { font-size: 0.55rem; margin-left: 0.2rem; transition: transform 0.2s; }
+    .tab-dropdown:hover > a .caret { transform: rotate(180deg); }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute; top: 100%; left: 0;
+      background: #fff;
+      border: 1px solid #e4e4e4;
+      border-top: 2px solid #111;
+      min-width: 160px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      z-index: 300;
+    }
+    .tab-dropdown:hover .dropdown-menu { display: block; }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 0.75rem 1.2rem;
+      font-size: 0.7rem; letter-spacing: 0.14em; font-weight: 600;
+      text-transform: uppercase; text-decoration: none; color: #555;
+      border-bottom: 1px solid #f0f0f0;
+      border-left: none; margin-bottom: 0;
+      transition: background 0.15s, color 0.15s;
+    }
+    .dropdown-menu a:last-child { border-bottom: none; }
+    .dropdown-menu a:hover { background: #f7f7f7; color: #111; }
+
+    /* ── PAGE BODY ── */
+    .page-body {
+      max-width: 860px; margin: 0 auto;
+      padding: 4rem 2rem 8rem;
+    }
+
+    /* ── SECTION BLOCKS ── */
+    .doc-section {
+      padding-top: 4rem;
+      margin-bottom: 1rem;
+      scroll-margin-top: 110px; /* offset for fixed topnav + sticky tabs */
+    }
+
+    .doc-section-title {
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: #aaa; margin-bottom: 0.6rem;
+    }
+
+    .doc-section-heading {
+      font-size: 1.75rem; font-weight: 700;
+      letter-spacing: 0.04em; color: #111;
+      padding-bottom: 0.8rem;
+      border-bottom: 2px solid #e8e8e8;
+      margin-bottom: 1.6rem;
+    }
+
+    .doc-text {
+      font-size: 0.97rem; line-height: 1.9; color: #555;
+      margin-bottom: 1.4rem;
+    }
+
+    /* ── SUB-SECTIONS (e.g. per-software) ── */
+    .doc-subsection {
+      margin-top: 2.8rem;
+      scroll-margin-top: 120px;
+    }
+
+    .doc-subsection-heading {
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: #111; margin-bottom: 0.9rem;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .doc-subsection-heading::after {
+      content: ''; flex: 1;
+      border-bottom: 1px solid #e4e4e4;
+    }
+
+    .badge {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; background: #111; color: #fff;
+      padding: 0.2rem 0.5rem; margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+
+    .code-comment { color: #999; }
+
+    code {
+      font-family: 'Courier New', monospace;
+      background: #f0f0f0; padding: 0.1rem 0.3rem;
+      font-size: 0.88em; color: #333;
+    }
+    pre code { background: none; padding: 0; }
+
+    .doc-linklist {
+      list-style: none;
+      margin-top: 0.5rem;
+    }
+    .doc-linklist li {
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .doc-linklist li:first-child {
+      border-top: 1px solid #f0f0f0;
+    }
+    .doc-linklist li a {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem 0.2rem;
+      font-size: 0.88rem; font-weight: 600; letter-spacing: 0.06em;
+      color: #333; text-decoration: none;
+      transition: color 0.15s, padding-left 0.15s;
+    }
+    .doc-linklist li a::after { content: '→'; font-size: 0.8rem; color: #aaa; transition: color 0.15s; }
+    .doc-linklist li a:hover { color: #111; padding-left: 0.4rem; }
+    .doc-linklist li a:hover::after { color: #111; }
+
+    .doc-subsection-heading--minor {
+      font-size: 0.68rem; color: #666;
+    }
+    pre {
+      background: #f5f5f5; border: 1px solid #e4e4e4;
+      padding: 1.1rem 1.4rem; border-radius: 2px;
+      font-size: 0.85rem; line-height: 1.7;
+      overflow-x: auto; margin: 1rem 0 1.4rem;
+      font-family: 'Courier New', monospace; color: #333;
+    }
+    code { font-family: 'Courier New', monospace; }
+
+    /* ── DIVIDER ── */
+    .doc-divider {
+      border: none; border-top: 1px solid #ebebeb;
+      margin: 3.5rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP NAV -->
+  <nav class="topnav">
+    <a class="nav-brand" href="index.html">The HydroGym Project</a>
+    <ul class="topnav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#" class="active">Get Started</a></li>
+      <li><a href="https://github.com/dynamicslab/hydrogym/blob/sa/ApptainerInfo/README.md#quick-start-with-docker-recommended" class="ext">Docs</a></li>
+      <li><a href="https://github.com/dynamicslab/hydrogym" class="ext">Code</a></li>
+    </ul>
+  </nav>
+
+  <!-- SECTION TABS -->
+  <div class="section-tabs" id="section-tabs">
+    <a href="#installation">Installation</a>
+    <div class="tab-dropdown">
+      <a href="#run-environments">Run Environments <span class="caret">▼</span></a>
+      <div class="dropdown-menu">
+        <a href="#env-maia">MAIA</a>
+        <a href="#env-jax">JAX</a>
+        <a href="#env-nek">NEK</a>
+      </div>
+    </div>
+    <a href="#rl-training">RL Training</a>
+    <a href="https://arxiv.org/abs/2512.17534" class="ext" target="_blank">
+      Read More <span class="ext-arrow">→</span>
+    </a>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <div class="page-body">
+
+    <!-- INSTALLATION -->
+    <!-- INSTALLATION -->
+    <section class="doc-section" id="installation">
+        <h2 class="doc-section-heading">Installation</h2>
+        <!-- Quick Start -->
+        <div class="doc-subsection">
+          <h3 class="doc-subsection-heading">Quick Start with Docker <span class="badge">Recommended</span></h3>
+          <pre><span class="code-comment"># For NVIDIA GPUs (CUDA)</span>
+  docker pull clagemann/maia-cuda-12.8.1:latest
+  <span class="code-comment"># For AMD GPUs (ROCm)</span>
+  docker pull clagemann/maia-rocm-6.3.3:latest
+  <span class="code-comment"># Run container</span>
+  docker run -it --gpus all clagemann/maia-cuda-12.8.1:latest</pre>
+        </div>
+  
+        <!-- Apptainer -->
+        <div class="doc-subsection">
+          <h3 class="doc-subsection-heading">Apptainer Usage</h3>
+          <p class="doc-text">
+            Note that in order to interface with a shared cluster, it is necessary to convert the available MAIA
+            docker container to the apptainer format, using the 
+            <code>apptainer pull</code> command followed by the host of the docker container:
+          </p>
+          <pre>apptainer pull docker://clagemann/maia-cuda-12.8.1:latest</pre>
+          <p class="doc-text">
+            This will convert the docker build file into the necessary <code>.sif</code> format for running
+            with apptainer. To run the MAIA apptainer, run <code>apptainer run</code> such as below with CUDA enabled and
+            bound to the workspace in the <code>.sif</code> environment:
+          </p>
+          <pre>apptainer run --nv --bind $(pwd):/workspace maia-cuda-12.8.1_latest.sif</pre>
+          <p class="doc-text">
+            Note that the above likely should be run with the additional necessary resources allocated (i.e. in
+            a Slurm environment, launch the apptainer within an interactive session or within an
+            <code>sbatch</code> file). Once the apptainer is launched, you can run HydroGym training with
+            access to the full MAIA backend.
+          </p>
+        </div>
+  
+        <!-- Port-Forwarding -->
+        <div class="doc-subsection doc-subsection--minor">
+          <h3 class="doc-subsection-heading doc-subsection-heading--minor">Port-Forwarding with Apptainer</h3>
+          <p class="doc-text">
+            Some packages will not be automatically added to the path due to
+            the Apptainer process of generating the <code>.sif</code> file, which does not honor the Docker
+            Entrypoint setup in the same way. However, functionality such as launching a
+            <code>pvserver</code> can be done simply by launching the source file:
+          </p>
+          <pre>bash /home/easybuild/paraview-plugins/pvServerLaunch2024.sh 32</pre>
+          <p class="doc-text">
+            On a Slurm environment, this will give a machine socket (e.g. <code>XXXXX:11111</code>) that can
+            be connected to by SSH-ing into the remote workstation and specifying a local port (e.g.
+            <code>11111</code>) to attach to the given remote socket. Run the following on your local desktop
+            with an install of ParaView (must be ParaView v5.13 for current container):
+          </p>
+          <pre>ssh USER@REMOTE.WORKSTATION.ADDRESS.EDU -L 11111:XXXXX:11111</pre>
+          <p class="doc-text">
+            You should now be able to connect from your local ParaView client — the local port will be
+            connected to the remote workstation port, allowing post-processing using the remote workstation's
+            compute with all your MAIA save files.
+          </p>
+        </div>
+      </section>
+
+      <hr class="doc-divider"/>
+
+      <!-- RUN ENVIRONMENTS -->
+      <section class="doc-section" id="run-environments">
+        <h2 class="doc-section-heading">Run Environments</h2>
+        <p class="doc-text">
+          Before getting into each backend, will go over the common structure and the huggingface interface 
+        </p>
+  
+        <div class="doc-subsection" id="env-maia">
+          <h3 class="doc-subsection-heading">MAIA</h3>
+          <p class="doc-text">MAIA: High-Performance CFD for Large-Scale Simulations. Built on RWTH Aachen's m-AIA framework, this backend enables massive parallel simulations with efficient CPU/GPU acceleration using the Lattice Boltzmann method. 
+          </p>
+          <ul class="doc-linklist">
+            <li><a href="https://github.com/dynamicslab/hydrogym/tree/cl/hydrogym_v1.0-OptSolverDeps/examples/maia/getting_started#quick-start">Setup and test MAIA environment</a></li>
+            <li><a href="https://github.com/dynamicslab/hydrogym/tree/cl/hydrogym_v1.0-OptSolverDeps/examples/maia/getting_started#train_sb3_maiapy">Train PPO on a cylinder with MAIA</a></li>
+            <li><a href="https://github.com/dynamicslab/hydrogym/tree/cl/hydrogym_v1.0-OptSolverDeps/examples/maia/getting_started#offline-usage-no-internet-on-compute-nodes">Offline usage and HuggingFace interface</a></li>
+          </ul>
+        </div>
+  
+        <div class="doc-subsection" id="env-jax">
+          <h3 class="doc-subsection-heading">JAX</h3>
+          <p class="doc-text">Fully differentiable spectral solvers for turbulent flows in JAX. Easy to set up and run examples - no HPC cluster needed. The simulations and training scripts benefit from GPU acceleration with JAX functionality.</p>
+          <ul class="doc-linklist">
+            <li><a href="https://github.com/dynamicslab/hydrogym/blob/sm-jax-env/examples/jax/test_kolmogorov_env.py">Setup and test Kolmogorov environment</a></li>
+            <li><a href="https://github.com/dynamicslab/hydrogym/blob/sm-jax-env/notebooks/kolmogorov.ipynb">Visualize results for Kolmogorov flow with Jupyter notebook</a></li>
+          </ul>
+        </div>
+  
+        <div class="doc-subsection" id="env-nek">
+          <h3 class="doc-subsection-heading">NEK</h3>
+          <p class="doc-text">Description of the NEK environment.</p>
+          <ul class="doc-linklist">
+            <li><a href="nek-test.html">Run test environment</a></li>
+            <li><a href="nek-example.html">Another NEK example</a></li>
+          </ul>
+        </div>
+      </section>
+  
+      <hr class="doc-divider"/>
+
+    <!-- RL TRAINING -->
+    <section class="doc-section" id="rl-training">
+\      <h2 class="doc-section-heading">RL Training</h2>
+      <p class="doc-text">
+        Overview of the RL training pipeline — supported algorithms, how agents interact with environments,
+        and any configuration options.
+      </p>
+
+      <div class="doc-subsection">
+        <h3 class="doc-subsection-heading">Basic training loop</h3>
+        <p class="doc-text">To do: Add simple script for PPO run </p>
+        <pre>python train.py --agent PPO --env MAIA --episodes 500</pre>
+      </div>
+
+      <div class="doc-subsection">
+        <h3 class="doc-subsection-heading">Custom probe locations</h3>
+        <p class="doc-text">Demonstrate how probe locations can be added </p>
+        <pre>code for this</pre>
+      </div>
+
+      <div class="doc-subsection">
+        <h3 class="doc-subsection-heading">Custom reward functions</h3>
+        <p class="doc-text">Will add how to include gradient term to reward</p>
+        <pre># In your environment config:
+reward_fn = lambda obs, action: your_custom_reward(obs, action)</pre>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- SCROLL SPY: highlight active tab -->
+  <script>
+    const tabs = document.querySelectorAll('.section-tabs a:not(.ext)');
+    const sections = document.querySelectorAll('.doc-section');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          tabs.forEach(t => t.classList.remove('active'));
+          const active = document.querySelector(`.section-tabs a[href="#${e.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+</body>
+</html>
