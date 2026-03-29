@@ -9,7 +9,6 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Raleway', sans-serif; color: #222; background: #fff; }
 
-    /* ── TOP NAV (same as index) ── */
     .topnav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; align-items: center; justify-content: space-between;
@@ -32,11 +31,9 @@
     .topnav-links a.active { font-weight: 700; color: #111; }
     .topnav-links .ext::before { content: "↗ "; font-size: 0.65rem; }
 
-    /* ── SECTION TABS (sticky below topnav) ── */
     .section-tabs {
       position: sticky; top: 56px; z-index: 100;
-      display: flex; gap: 0;
-      background: #fff;
+      display: flex; background: #fff;
       border-bottom: 2px solid #e8e8e8;
       padding: 0 2.5rem;
     }
@@ -53,55 +50,34 @@
     .section-tabs a.active { color: #111; border-bottom-color: #111; }
     .section-tabs .ext-arrow { font-size: 0.8rem; }
 
-    /* ── DROPDOWN ── */
     .tab-dropdown { position: relative; }
-    .tab-dropdown > a { cursor: default; }
     .tab-dropdown > a .caret { font-size: 0.55rem; margin-left: 0.2rem; transition: transform 0.2s; }
     .tab-dropdown:hover > a .caret { transform: rotate(180deg); }
-
     .dropdown-menu {
-      display: none;
-      position: absolute; top: 100%; left: 0;
-      background: #fff;
-      border: 1px solid #e4e4e4;
-      border-top: 2px solid #111;
-      min-width: 160px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-      z-index: 300;
+      display: none; position: absolute; top: 100%; left: 0;
+      background: #fff; border: 1px solid #e4e4e4;
+      border-top: 2px solid #111; min-width: 160px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08); z-index: 300;
     }
     .tab-dropdown:hover .dropdown-menu { display: block; }
-
     .dropdown-menu a {
-      display: block;
-      padding: 0.75rem 1.2rem;
+      display: block; padding: 0.75rem 1.2rem;
       font-size: 0.7rem; letter-spacing: 0.14em; font-weight: 600;
       text-transform: uppercase; text-decoration: none; color: #555;
       border-bottom: 1px solid #f0f0f0;
-      border-left: none; margin-bottom: 0;
       transition: background 0.15s, color 0.15s;
     }
     .dropdown-menu a:last-child { border-bottom: none; }
     .dropdown-menu a:hover { background: #f7f7f7; color: #111; }
 
-    /* ── PAGE BODY ── */
-    .page-body {
-      max-width: 860px; margin: 0 auto;
-      padding: 4rem 2rem 8rem;
-    }
+    .page-body { max-width: 860px; margin: 0 auto; padding: 4rem 2rem 8rem; }
 
-    /* ── SECTION BLOCKS ── */
-    .doc-section {
-      padding-top: 4rem;
-      margin-bottom: 1rem;
-      scroll-margin-top: 110px; /* offset for fixed topnav + sticky tabs */
-    }
-
+    .doc-section { padding-top: 4rem; margin-bottom: 1rem; scroll-margin-top: 110px; }
     .doc-section-title {
       font-size: 0.7rem; font-weight: 700;
       letter-spacing: 0.22em; text-transform: uppercase;
       color: #aaa; margin-bottom: 0.6rem;
     }
-
     .doc-section-heading {
       font-size: 1.75rem; font-weight: 700;
       letter-spacing: 0.04em; color: #111;
@@ -109,55 +85,62 @@
       border-bottom: 2px solid #e8e8e8;
       margin-bottom: 1.6rem;
     }
+    .doc-text { font-size: 0.97rem; line-height: 1.9; color: #555; margin-bottom: 1.4rem; }
 
-    .doc-text {
-      font-size: 0.97rem; line-height: 1.9; color: #555;
-      margin-bottom: 1.4rem;
-    }
-
-    /* ── SUB-SECTIONS (e.g. per-software) ── */
-    .doc-subsection {
-      margin-top: 2.8rem;
-      scroll-margin-top: 120px;
-    }
-
+    .doc-subsection { margin-top: 2.8rem; scroll-margin-top: 120px; }
     .doc-subsection-heading {
       font-size: 0.72rem; font-weight: 700;
       letter-spacing: 0.18em; text-transform: uppercase;
       color: #111; margin-bottom: 0.9rem;
       display: flex; align-items: center; gap: 0.6rem;
     }
-    .doc-subsection-heading::after {
-      content: ''; flex: 1;
-      border-bottom: 1px solid #e4e4e4;
-    }
+    .doc-subsection-heading::after { content: ''; flex: 1; border-bottom: 1px solid #e4e4e4; }
+    .doc-subsection-heading--minor { font-size: 0.68rem; color: #666; }
+    .doc-subsection--minor { margin-top: 1.8rem; padding-left: 1.2rem; border-left: 2px solid #e8e8e8; }
 
     .badge {
       font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em;
       text-transform: uppercase; background: #111; color: #fff;
-      padding: 0.2rem 0.5rem; margin-left: 0.5rem;
-      vertical-align: middle;
+      padding: 0.2rem 0.5rem; margin-left: 0.5rem; vertical-align: middle;
     }
-
-    .code-comment { color: #999; }
 
     code {
       font-family: 'Courier New', monospace;
       background: #f0f0f0; padding: 0.1rem 0.3rem;
       font-size: 0.88em; color: #333;
     }
-    pre code { background: none; padding: 0; }
+    .code-comment { color: #999; font-style: italic; }
 
-    .doc-linklist {
-      list-style: none;
-      margin-top: 0.5rem;
+    /* ── CODE BLOCK WITH COPY ── */
+    .code-container {
+      position: relative;
+      margin: 1rem 0 1.4rem;
     }
-    .doc-linklist li {
-      border-bottom: 1px solid #f0f0f0;
+    .code-container pre {
+      background: #f5f5f5; border: 1px solid #e4e4e4;
+      padding: 1.1rem 5rem 1.1rem 1.4rem;
+      font-size: 0.85rem; line-height: 1.7;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace; color: #333;
+      margin: 0;
     }
-    .doc-linklist li:first-child {
-      border-top: 1px solid #f0f0f0;
+    .code-container pre code { background: none; padding: 0; }
+    .copy-btn {
+      position: absolute; top: 0.6rem; right: 0.7rem;
+      padding: 0.25rem 0.7rem;
+      background: transparent; color: #888;
+      border: 1px solid #ccc; cursor: pointer;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      transition: color 0.15s, border-color 0.15s;
     }
+    .copy-btn:hover { color: #111; border-color: #888; }
+    .copy-btn.copied { color: #2a9d5c; border-color: #2a9d5c; }
+
+    .doc-linklist { list-style: none; margin-top: 0.5rem; }
+    .doc-linklist li { border-bottom: 1px solid #f0f0f0; }
+    .doc-linklist li:first-child { border-top: 1px solid #f0f0f0; }
     .doc-linklist li a {
       display: flex; align-items: center; justify-content: space-between;
       padding: 0.75rem 0.2rem;
@@ -165,32 +148,36 @@
       color: #333; text-decoration: none;
       transition: color 0.15s, padding-left 0.15s;
     }
-    .doc-linklist li a::after { content: '→'; font-size: 0.8rem; color: #aaa; transition: color 0.15s; }
+    .doc-linklist li a::after { content: '→'; font-size: 0.8rem; color: #aaa; }
     .doc-linklist li a:hover { color: #111; padding-left: 0.4rem; }
     .doc-linklist li a:hover::after { color: #111; }
 
-    .doc-subsection-heading--minor {
-      font-size: 0.68rem; color: #666;
-    }
-    pre {
-      background: #f5f5f5; border: 1px solid #e4e4e4;
-      padding: 1.1rem 1.4rem; border-radius: 2px;
-      font-size: 0.85rem; line-height: 1.7;
-      overflow-x: auto; margin: 1rem 0 1.4rem;
-      font-family: 'Courier New', monospace; color: #333;
-    }
-    code { font-family: 'Courier New', monospace; }
+    .doc-divider { border: none; border-top: 1px solid #ebebeb; margin: 3.5rem 0; }
 
-    /* ── DIVIDER ── */
-    .doc-divider {
-      border: none; border-top: 1px solid #ebebeb;
-      margin: 3.5rem 0;
+    /* ── SUMMARY TABLE ── */
+    .summary-table { width: 100%; border-collapse: collapse; margin: 1.8rem 0 2.8rem; font-size: 0.88rem; border: 1px solid #e0e0e0; }
+    .summary-table th {
+      text-align: left; padding: 1rem 1.4rem;
+      font-size: 0.68rem; letter-spacing: 0.14em;
+      text-transform: uppercase; font-weight: 700; color: #666;
+      background: #f2f2f2; border-bottom: 2px solid #d0d0d0; border-right: 1px solid #ddd;
+    }
+    .summary-table th:last-child { border-right: none; }
+    .summary-table td { padding: 1rem 1.4rem; color: #333; border-bottom: 1px solid #e4e4e4; border-right: 1px solid #e4e4e4; line-height: 1.6; }
+    .summary-table td:last-child { border-right: none; }
+    .summary-table tbody tr:nth-child(even) { background: #fafafa; }
+    .summary-table tbody tr:hover { background: #f0f4ff; }
+    .summary-table tbody tr:last-child td { border-bottom: none; }
+    .solver-tag {
+      display: inline-block; font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      background: #e2e2e2; color: #555;
+      padding: 0.15rem 0.45rem; margin-left: 0.4rem; vertical-align: middle;
     }
   </style>
 </head>
 <body>
 
-  <!-- TOP NAV -->
   <nav class="topnav">
     <a class="nav-brand" href="index.html">The HydroGym Project</a>
     <ul class="topnav-links">
@@ -201,7 +188,6 @@
     </ul>
   </nav>
 
-  <!-- SECTION TABS -->
   <div class="section-tabs" id="section-tabs">
     <a href="#installation">Installation</a>
     <div class="tab-dropdown">
@@ -218,148 +204,177 @@
     </a>
   </div>
 
-  <!-- PAGE CONTENT -->
   <div class="page-body">
 
     <!-- INSTALLATION -->
-    <!-- INSTALLATION -->
     <section class="doc-section" id="installation">
-        <h2 class="doc-section-heading">Installation</h2>
-        <!-- Quick Start -->
-        <div class="doc-subsection">
-          <h3 class="doc-subsection-heading">Quick Start with Docker <span class="badge">Recommended</span></h3>
-          <pre><span class="code-comment"># For NVIDIA GPUs (CUDA)</span>
-  docker pull clagemann/maia-cuda-12.8.1:latest
-  <span class="code-comment"># For AMD GPUs (ROCm)</span>
-  docker pull clagemann/maia-rocm-6.3.3:latest
-  <span class="code-comment"># Run container</span>
-  docker run -it --gpus all clagemann/maia-cuda-12.8.1:latest</pre>
+      <h2 class="doc-section-heading">Installation</h2>
+
+      <div class="doc-subsection">
+        <h3 class="doc-subsection-heading">Quick Start with Docker <span class="badge">Recommended</span></h3>
+        
+        <p class="doc-text">For machines with NVIDIA GPUs (CUDA):</p>
+        <div class="code-container">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre>docker pull clagemann/maia-cuda-12.8.1:latest</pre>
         </div>
-  
-        <!-- Apptainer -->
-        <div class="doc-subsection">
-          <h3 class="doc-subsection-heading">Apptainer Usage</h3>
-          <p class="doc-text">
-            Note that in order to interface with a shared cluster, it is necessary to convert the available MAIA
-            docker container to the apptainer format, using the 
-            <code>apptainer pull</code> command followed by the host of the docker container:
-          </p>
+        <p class="doc-text">For AMD GPUs (ROCm):</p>
+        <div class="code-container">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre>docker pull clagemann/maia-rocm-6.3.3:latest</pre>
+        </div>
+        <p class="doc-text">Run container:</p>
+        <div class="code-container">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre>docker run -it --gpus all clagemann/maia-cuda-12.8.1:latest</pre>
+        </div>
+        
+      </div>
+
+      <div class="doc-subsection">
+        <h3 class="doc-subsection-heading">Apptainer Usage</h3>
+        <p class="doc-text">Note that in order to interface with a shared cluster, it is necessary to convert the available MAIA docker container to the apptainer format, using the <code>apptainer pull</code> command followed by the host of the docker container:</p>
+        <div class="code-container">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
           <pre>apptainer pull docker://clagemann/maia-cuda-12.8.1:latest</pre>
-          <p class="doc-text">
-            This will convert the docker build file into the necessary <code>.sif</code> format for running
-            with apptainer. To run the MAIA apptainer, run <code>apptainer run</code> such as below with CUDA enabled and
-            bound to the workspace in the <code>.sif</code> environment:
-          </p>
+        </div>
+        <p class="doc-text">This will convert the docker build file into the necessary <code>.sif</code> format for running with apptainer. To run the MAIA apptainer, run <code>apptainer run</code> such as below with CUDA enabled and bound to the workspace in the <code>.sif</code> environment:</p>
+        <div class="code-container">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
           <pre>apptainer run --nv --bind $(pwd):/workspace maia-cuda-12.8.1_latest.sif</pre>
-          <p class="doc-text">
-            Note that the above likely should be run with the additional necessary resources allocated (i.e. in
-            a Slurm environment, launch the apptainer within an interactive session or within an
-            <code>sbatch</code> file). Once the apptainer is launched, you can run HydroGym training with
-            access to the full MAIA backend.
-          </p>
         </div>
-  
-        <!-- Port-Forwarding -->
-        <div class="doc-subsection doc-subsection--minor">
-          <h3 class="doc-subsection-heading doc-subsection-heading--minor">Port-Forwarding with Apptainer</h3>
-          <p class="doc-text">
-            Some packages will not be automatically added to the path due to
-            the Apptainer process of generating the <code>.sif</code> file, which does not honor the Docker
-            Entrypoint setup in the same way. However, functionality such as launching a
-            <code>pvserver</code> can be done simply by launching the source file:
-          </p>
+        <p class="doc-text">Note that the above likely should be run with the additional necessary resources allocated (i.e. in a Slurm environment, launch the apptainer within an interactive session or within an <code>sbatch</code> file). Once the apptainer is launched, you can run HydroGym training with access to the full MAIA backend.</p>
+      </div>
+
+      <div class="doc-subsection doc-subsection--minor">
+        <h3 class="doc-subsection-heading doc-subsection-heading--minor">Port-Forwarding with Apptainer</h3>
+        <p class="doc-text">Some packages will not be automatically added to the path due to the Apptainer process of generating the <code>.sif</code> file. However, functionality such as launching a <code>pvserver</code> can be done simply by launching the source file:</p>
+        <div class="code-container">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
           <pre>bash /home/easybuild/paraview-plugins/pvServerLaunch2024.sh 32</pre>
-          <p class="doc-text">
-            On a Slurm environment, this will give a machine socket (e.g. <code>XXXXX:11111</code>) that can
-            be connected to by SSH-ing into the remote workstation and specifying a local port (e.g.
-            <code>11111</code>) to attach to the given remote socket. Run the following on your local desktop
-            with an install of ParaView (must be ParaView v5.13 for current container):
-          </p>
+        </div>
+        <p class="doc-text">On a Slurm environment, this will give a machine socket (e.g. <code>XXXXX:11111</code>) that can be connected to by SSH-ing into the remote workstation and specifying a local port to attach to the given remote socket. Run the following on your local desktop with an install of ParaView (must be ParaView v5.13 for current container):</p>
+        <div class="code-container">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
           <pre>ssh USER@REMOTE.WORKSTATION.ADDRESS.EDU -L 11111:XXXXX:11111</pre>
-          <p class="doc-text">
-            You should now be able to connect from your local ParaView client — the local port will be
-            connected to the remote workstation port, allowing post-processing using the remote workstation's
-            compute with all your MAIA save files.
-          </p>
         </div>
-      </section>
+        <p class="doc-text">You should now be able to connect from your local ParaView client — the local port will be connected to the remote workstation port, allowing post-processing using the remote workstation's compute with all your MAIA save files.</p>
+      </div>
+    </section>
 
-      <hr class="doc-divider"/>
+    <hr class="doc-divider"/>
 
-      <!-- RUN ENVIRONMENTS -->
-      <section class="doc-section" id="run-environments">
-        <h2 class="doc-section-heading">Run Environments</h2>
-        <p class="doc-text">
-          Before getting into each backend, will go over the common structure and the huggingface interface 
-        </p>
-  
-        <div class="doc-subsection" id="env-maia">
-          <h3 class="doc-subsection-heading">MAIA</h3>
-          <p class="doc-text">MAIA: High-Performance CFD for Large-Scale Simulations. Built on RWTH Aachen's m-AIA framework, this backend enables massive parallel simulations with efficient CPU/GPU acceleration using the Lattice Boltzmann method. 
-          </p>
-          <ul class="doc-linklist">
-            <li><a href="https://github.com/dynamicslab/hydrogym/tree/cl/hydrogym_v1.0-OptSolverDeps/examples/maia/getting_started#quick-start">Setup and test MAIA environment</a></li>
-            <li><a href="https://github.com/dynamicslab/hydrogym/tree/cl/hydrogym_v1.0-OptSolverDeps/examples/maia/getting_started#train_sb3_maiapy">Train PPO on a cylinder with MAIA</a></li>
-            <li><a href="https://github.com/dynamicslab/hydrogym/tree/cl/hydrogym_v1.0-OptSolverDeps/examples/maia/getting_started#offline-usage-no-internet-on-compute-nodes">Offline usage and HuggingFace interface</a></li>
-          </ul>
-        </div>
-  
-        <div class="doc-subsection" id="env-jax">
-          <h3 class="doc-subsection-heading">JAX</h3>
-          <p class="doc-text">Fully differentiable spectral solvers for turbulent flows in JAX. Easy to set up and run examples - no HPC cluster needed. The simulations and training scripts benefit from GPU acceleration with JAX functionality.</p>
-          <ul class="doc-linklist">
-            <li><a href="https://github.com/dynamicslab/hydrogym/blob/sm-jax-env/examples/jax/test_kolmogorov_env.py">Setup and test Kolmogorov environment</a></li>
-            <li><a href="https://github.com/dynamicslab/hydrogym/blob/sm-jax-env/notebooks/kolmogorov.ipynb">Visualize results for Kolmogorov flow with Jupyter notebook</a></li>
-          </ul>
-        </div>
-  
-        <div class="doc-subsection" id="env-nek">
-          <h3 class="doc-subsection-heading">NEK 5000</h3>
-          <p class="doc-text">Nek5000 is a computational fluid dynamics code that employs the spectral-element method (SEM) to simulate unsteady incompressible fluid flow. It can handle general two- and three-dimensional domains described by isoparametric quad or hex elements.  </p>
-          <ul class="doc-linklist">
-            <li><a href="nek-test.html">Run test environment</a></li>
-            <li><a href="nek-example.html">Another NEK example</a></li>
-          </ul>
-        </div>
-      </section>
-  
-      <hr class="doc-divider"/>
+    <!-- RUN ENVIRONMENTS -->
+    <section class="doc-section" id="run-environments">
+      <h2 class="doc-section-heading">Run Environments</h2>
+      <p class="doc-text">HydroGym provides <strong>88 environments</strong> across 6 solver backends:</p>
+
+      <table class="summary-table">
+        <thead>
+          <tr>
+            <th>Solver Backend</th><th>Count</th><th>Description</th><th>Dimensions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Firedrake</strong> <span class="solver-tag">FEM</span></td><td>20</td><td>Canonical flow control benchmarks</td><td>2D</td></tr>
+          <tr><td><strong>MAIA </strong><span class="solver-tag">LBM</span></td><td>55</td><td>Lattice Boltzmann method environments</td><td>2D, 3D</td></tr>
+          <tr><td><strong>MAIA <span class="solver-tag">Structured FV</span></strong></td><td>8</td><td>High-Reynolds turbulent boundary layers</td><td>3D</td></tr>
+          <tr><td><strong>NEK5000</strong><span class="solver-tag">SEM</span></td><td>1</td><td>Spectral element turbulent channel flow</td><td>3D</td></tr>
+          <tr><td><strong>JAX</strong><span class="solver-tag">SEM, FD</span> </td><td>2</td><td>Differentiable fluid dynamics</td><td>2D, 3D</td></tr>
+          <tr><td><strong>JAX-Fluids</strong></td><td>2</td><td>Compressible jet engine control</td><td>2D, 3D</td></tr>
+        </tbody>
+      </table>
+
+      <p class="doc-text">HydroGym interfaces with HuggingFace to easily set up fluid environments. HuggingFace currently contains several pre-configured environments that can be loaded via <code>.from_hf()</code>. 
+        For instance, MAIA environments can be loaded as follows:</p>
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            <pre>env = maia.from_hf('Cylinder_2D_Re200')</pre>
+          </div>
+          <p class="doc-text">Several pre-configured environments are available to load from Huggingface. 
+            A list of environments and their exact naming conventions can be found here. For further detail on customizing environments and running RL scripts, jump to the RL Training section.</p>
+          
+      <div class="doc-subsection" id="env-maia">
+        <h3 class="doc-subsection-heading">MAIA</h3>
+        <p class="doc-text">MAIA: High-Performance CFD for Large-Scale Simulations. Built on RWTH Aachen's m-AIA framework, this backend enables massive parallel simulations with efficient CPU/GPU acceleration using the Lattice Boltzmann method.</p>
+        <ul class="doc-linklist">
+          <li><a href="https://github.com/dynamicslab/hydrogym/tree/cl/hydrogym_v1.0-OptSolverDeps/examples/maia/getting_started#quick-start">Setup and test MAIA environment</a></li>
+          <li><a href="https://github.com/dynamicslab/hydrogym/tree/cl/hydrogym_v1.0-OptSolverDeps/examples/maia/getting_started#train_sb3_maiapy">Train PPO on a cylinder with MAIA</a></li>
+          <li><a href="https://github.com/dynamicslab/hydrogym/tree/cl/hydrogym_v1.0-OptSolverDeps/examples/maia/getting_started#offline-usage-no-internet-on-compute-nodes">Offline usage and HuggingFace interface</a></li>
+        </ul>
+      </div>
+
+      <div class="doc-subsection" id="env-firedrake">
+        <h3 class="doc-subsection-heading">Firedrake</h3>
+        <p class="doc-text">Firedrake is an automated system for the solution of partial differential equations using the finite element method (FEM).</p>
+        <ul class="doc-linklist">
+          <li><a href="https://github.com/dynamicslab/hydrogym/tree/cl/hydrogym_v1.0-OptSolverDeps/examples/firedrake/getting_started#configuration-categories">Configuration details for Firedrake environments</a></li>
+          <li><a href="https://github.com/dynamicslab/hydrogym/tree/cl/hydrogym_v1.0-OptSolverDeps/examples/firedrake/getting_started#example-1-basic-cylinder-environment">Run a 2D flow around a cylinder with Firedrake</a></li>
+          <li><a href="https://github.com/dynamicslab/hydrogym/tree/cl/hydrogym_v1.0-OptSolverDeps/examples/firedrake/getting_started#example-4-automatic-checkpoint-loading">Checkpointing and using callbacks with Firedrake</a></li>
+        </ul>
+      </div>
+
+      <div class="doc-subsection" id="env-jax">
+        <h3 class="doc-subsection-heading">JAX</h3>
+        <p class="doc-text">Fully differentiable spectral solvers for turbulent flows in JAX. Easy to set up and run examples — no HPC cluster needed. The simulations and training scripts benefit from GPU acceleration with JAX functionality.</p>
+        <ul class="doc-linklist">
+          <li><a href="https://github.com/dynamicslab/hydrogym/blob/sm-jax-env/examples/jax/test_kolmogorov_env.py">Setup and test Kolmogorov environment</a></li>
+          <li><a href="https://github.com/dynamicslab/hydrogym/blob/sm-jax-env/notebooks/kolmogorov.ipynb">Visualize results for Kolmogorov flow with Jupyter notebook</a></li>
+        </ul>
+      </div>
+
+      <div class="doc-subsection" id="env-nek">
+        <h3 class="doc-subsection-heading">NEK5000</h3>
+        <p class="doc-text">Nek5000 is a computational fluid dynamics code that employs the spectral-element method (SEM) to simulate unsteady incompressible fluid flow. It can handle general two- and three-dimensional domains described by isoparametric quad or hex elements.</p>
+        <ul class="doc-linklist">
+           <li><a href="https://github.com/dynamicslab/hydrogym/tree/cl/hydrogym_v1.0-OptSolverDeps/examples/nek/getting_started#4-4_from_hf---huggingface-data-manager">Load pre-configured environments with Huggingface interface</a></li>
+          <li><a href="https://github.com/dynamicslab/hydrogym/tree/cl/hydrogym_v1.0-OptSolverDeps/examples/nek/getting_started#1-1_nekenv_single---single-agent-standard-gym">Run 3D Channel flow with single PPO agent</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <hr class="doc-divider"/>
 
     <!-- RL TRAINING -->
     <section class="doc-section" id="rl-training">
-\      <h2 class="doc-section-heading">RL Training</h2>
-      <p class="doc-text">
-        Overview of the RL training pipeline — supported algorithms, how agents interact with environments,
-        and any configuration options.
-      </p>
+      <h2 class="doc-section-heading">RL Training</h2>
+      <p class="doc-text">Overview of the RL training pipeline — supported algorithms, how agents interact with environments, and any configuration options.</p>
 
       <div class="doc-subsection">
         <h3 class="doc-subsection-heading">Basic training loop</h3>
-        <p class="doc-text">To do: Add simple script for PPO run </p>
-        <pre>python train.py --agent PPO --env MAIA --episodes 500</pre>
+        <p class="doc-text">To do: Add simple script for PPO run</p>
+        <div class="code-container">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre>python train.py --agent PPO --env MAIA --episodes 500</pre>
+        </div>
       </div>
 
       <div class="doc-subsection">
-        <h3 class="doc-subsection-heading">Custom probe locations</h3>
-        <p class="doc-text">Demonstrate how probe locations can be added </p>
-        <pre>code for this</pre>
+        <h3 class="doc-subsection-heading">Probe locations <span class="badge">Customize Environment</span></h3>
+        <p class="doc-text">Demonstrate how probe locations can be added.</p>
+        <div class="code-container">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre>code for this</pre>
+        </div>
       </div>
 
       <div class="doc-subsection">
-        <h3 class="doc-subsection-heading">Custom reward functions</h3>
-        <p class="doc-text">Will add how to include gradient term to reward</p>
-        <pre># In your environment config:
+        <h3 class="doc-subsection-heading">Gradient-based optimization <span class="badge">Customize Environment</span></h3>
+        <p class="doc-text">For the differentiable environments written in JAX, the user has the ability to obtain sensitivities by computing a backward pass through the environment dynamics.</p>
+        <div class="code-container">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre># In your environment config:
 reward_fn = lambda obs, action: your_custom_reward(obs, action)</pre>
+        </div>
       </div>
     </section>
 
   </div>
 
-  <!-- SCROLL SPY: highlight active tab -->
   <script>
+    // Scroll spy
     const tabs = document.querySelectorAll('.section-tabs a:not(.ext)');
     const sections = document.querySelectorAll('.doc-section');
-
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) {
@@ -369,8 +384,27 @@ reward_fn = lambda obs, action: your_custom_reward(obs, action)</pre>
         }
       });
     }, { rootMargin: '-30% 0px -60% 0px' });
-
     sections.forEach(s => observer.observe(s));
+
+    // Copy button
+    function copyCode(btn) {
+      const pre = btn.nextElementSibling;
+      const text = pre.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      }).catch(() => {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+      });
+    }
   </script>
 
 </body>
