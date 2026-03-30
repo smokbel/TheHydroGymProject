@@ -194,6 +194,7 @@
       <a href="#run-environments">Run Environments <span class="caret">▼</span></a>
       <div class="dropdown-menu">
         <a href="#env-maia">MAIA</a>
+        <a href="#env-firedrake">Firedrake</a>
         <a href="#env-jax">JAX</a>
         <a href="#env-nek">NEK</a>
       </div>
@@ -281,7 +282,7 @@
           <tr><td><strong>MAIA <span class="solver-tag">Structured FV</span></strong></td><td>8</td><td>High-Reynolds turbulent boundary layers</td><td>3D</td></tr>
           <tr><td><strong>NEK5000</strong><span class="solver-tag">SEM</span></td><td>1</td><td>Spectral element turbulent channel flow</td><td>3D</td></tr>
           <tr><td><strong>JAX</strong><span class="solver-tag">SEM, FD</span> </td><td>2</td><td>Differentiable fluid dynamics</td><td>2D, 3D</td></tr>
-          <tr><td><strong>JAX-Fluids</strong></td><td>2</td><td>Compressible jet engine control</td><td>2D, 3D</td></tr>
+          <tr><td><strong>JAX-Fluids</strong><span class="solver-tag">FVM</span></td><td>2</td><td>Compressible jet engine control</td><td>2D, 3D</td></tr>
         </tbody>
       </table>
 
@@ -292,7 +293,8 @@
             <pre>env = maia.from_hf('Cylinder_2D_Re200')</pre>
           </div>
           <p class="doc-text">Several pre-configured environments are available to load from Huggingface. 
-            A list of environments and their exact naming conventions can be found here. For further detail on customizing environments and running RL scripts, jump to the RL Training section.</p>
+            
+            A list of environments and their exact naming conventions can be found <a href="https://github.com/dynamicslab/hydrogym/blob/sa/ApptainerInfo/existing_environments.yaml">here →</a>. For further detail on customizing environments and running RL scripts, jump to the RL Training section.</p>
           
       <div class="doc-subsection" id="env-maia">
         <h3 class="doc-subsection-heading">MAIA</h3>
@@ -316,10 +318,12 @@
 
       <div class="doc-subsection" id="env-jax">
         <h3 class="doc-subsection-heading">JAX</h3>
-        <p class="doc-text">Fully differentiable spectral solvers for turbulent flows in JAX. Easy to set up and run examples — no HPC cluster needed. The simulations and training scripts benefit from GPU acceleration with JAX functionality.</p>
+        <p class="doc-text">Fully differentiable spectral solvers for turbulent flows in JAX. Easy to set up and run examples — no HPC cluster needed. The simulations and training scripts benefit from GPU acceleration with JAX functionality. 
+          Examples are also feasible to run on personal laptop with no GPU access.</p>
         <ul class="doc-linklist">
           <li><a href="https://github.com/dynamicslab/hydrogym/blob/sm-jax-env/examples/jax/test_kolmogorov_env.py">Setup and test Kolmogorov environment</a></li>
           <li><a href="https://github.com/dynamicslab/hydrogym/blob/sm-jax-env/notebooks/kolmogorov.ipynb">Visualize results for Kolmogorov flow with Jupyter notebook</a></li>
+          <li><a href="https://github.com/dynamicslab/hydrogym/blob/sm-jax-env/examples/jax/channel.ipynb">Set up and run 3D turbulent channel flow environment with basic actuation</a></li>
         </ul>
       </div>
 
@@ -329,6 +333,9 @@
         <ul class="doc-linklist">
            <li><a href="https://github.com/dynamicslab/hydrogym/tree/cl/hydrogym_v1.0-OptSolverDeps/examples/nek/getting_started#4-4_from_hf---huggingface-data-manager">Load pre-configured environments with Huggingface interface</a></li>
           <li><a href="https://github.com/dynamicslab/hydrogym/tree/cl/hydrogym_v1.0-OptSolverDeps/examples/nek/getting_started#1-1_nekenv_single---single-agent-standard-gym">Run 3D Channel flow with single PPO agent</a></li>
+          <li><a href="https://github.com/dynamicslab/hydrogym/tree/cl/hydrogym_v1.0-OptSolverDeps/examples/nek/getting_started/5_hydrogym_control#nek5000-control-with-integrate">Run basic control with environment</a></li>
+
+
         </ul>
       </div>
     </section>
@@ -338,35 +345,56 @@
     <!-- RL TRAINING -->
     <section class="doc-section" id="rl-training">
       <h2 class="doc-section-heading">RL Training</h2>
-      <p class="doc-text">Overview of the RL training pipeline — supported algorithms, how agents interact with environments, and any configuration options.</p>
-
-      <div class="doc-subsection">
+      
+      <p class="doc-text">The MAIA environments can be customised by passing arguments to the <code>.from_hf()</code> function. For instance, 
+        a SB3 script with the Cylinder 2D environment and custom probe locations:  </p>
         <h3 class="doc-subsection-heading">Basic training loop</h3>
-        <p class="doc-text">To do: Add simple script for PPO run</p>
         <div class="code-container">
           <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-          <pre>python train.py --agent PPO --env MAIA --episodes 500</pre>
+          <pre># See train_sb3_maia.py for full implementation
+import hydrogym.maia as maia
+from stable_baselines3 import PPO
+from stable_baselines3.common.monitor import Monitor
+ffrom stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
+            
+f# Define probes
+probe_locations = []
+for x in np.linspace(1.0, 8.0, 8):
+  for y in np.linspace(-1.0, 1.0, 5):
+    probe_locations.extend([x, y])
+            
+def make_env():
+  env = maia.from_hf(
+    'Cylinder_2D_Re200',
+     use_clean_cache=False,
+     probe_locations=probe_locations,
+     obs_normalization_strategy='U_inf',)
+     return Monitor(env)
+            
+env = DummyVecEnv([make_env])
+env = VecNormalize(env, norm_obs=True, norm_reward=True, clip_obs=10.0)
+            
+model = PPO("MlpPolicy", env, verbose=1, tensorboard_log="./logs")
+model.learn(total_timesteps=100000)
+            
+model.save("ppo_cylinder")
+env.save("vec_normalize.pkl")</pre>
         </div>
+        The documentation also contains full scripts on  <a href="https://github.com/dynamicslab/hydrogym/tree/cl/hydrogym_v1.0-OptSolverDeps/examples/maia/getting_started#example-4-custom-normalization">custom normalization →</a>. and  <a href="https://github.com/dynamicslab/hydrogym/tree/cl/hydrogym_v1.0-OptSolverDeps/examples/maia/getting_started#offline-usage-no-internet-on-compute-nodes">offline usage with local files →</a>.
+     
+      <div class="doc-subsection">
+        <h3 class="doc-subsection-heading"> Interactive test scripts</h3>
+
+        <p class="doc-text">Hydrogym also contains a number of interactive test scripts that can easily be run. For instance, this is a script run with 1 Python + 1 MAIA process:
+        </p>
+        <div class="code-container">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre>
+mpirun -np 1 python test_maia_env.py --environment Cylinder_2D_Re200 : -np 1 maia properties.toml
+            </div>
       </div>
 
-      <div class="doc-subsection">
-        <h3 class="doc-subsection-heading">Probe locations <span class="badge">Customize Environment</span></h3>
-        <p class="doc-text">Demonstrate how probe locations can be added.</p>
-        <div class="code-container">
-          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-          <pre>code for this</pre>
-        </div>
-      </div>
-
-      <div class="doc-subsection">
-        <h3 class="doc-subsection-heading">Gradient-based optimization <span class="badge">Customize Environment</span></h3>
-        <p class="doc-text">For the differentiable environments written in JAX, the user has the ability to obtain sensitivities by computing a backward pass through the environment dynamics.</p>
-        <div class="code-container">
-          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-          <pre># In your environment config:
-reward_fn = lambda obs, action: your_custom_reward(obs, action)</pre>
-        </div>
-      </div>
+      
     </section>
 
   </div>
